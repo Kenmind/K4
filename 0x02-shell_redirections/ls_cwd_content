@@ -1,0 +1,19 @@
+total 56
+drwxr-xr-x 3 root root  331 Aug 23 10:45 .
+drwxr-xr-x 6 root root  121 Aug 23 05:52 ..
+-rwxr-xr-x 1 root root   36 Aug 23 04:56 0-hello_world
+-rwxr-xr-x 1 root root   28 Aug 23 09:30 1-confused_smiley
+-rwxr-xr-x 1 root root   27 Aug 23 09:27 1-confused_smiley~
+-rwxr-xr-x 1 root root   28 Aug 23 09:39 2-hellofile
+-rwxr-xr-x 1 root root   39 Aug 23 09:44 3-twofiles
+-rwxr-xr-x 1 root root   29 Aug 23 09:55 4-lastlines
+-rwxr-xr-x 1 root root   33 Aug 23 09:51 4-lastlines~
+-rwxr-xr-x 1 root root   29 Aug 23 09:56 5-firstlines
+-rwxr-xr-x 1 root root   45 Aug 23 10:36 6-third_line
+-rwxr-xr-x 1 root root   41 Aug 23 10:05 6-third_line~
+-rwxr-xr-x 1 root root   75 Aug 23 10:41 7-file
+-rw-r--r-- 1 root root   13 Aug 23 10:17 7-file~
+-rwxr-xr-x 1 root root   36 Aug 23 10:44 8-cwd_state
+drwxr-xr-x 2 root root    6 Aug 23 09:39 em_engineering-devops
+-rw-r--r-- 1 root root    0 Aug 23 10:45 ls_cwd_content
+-rw-r--r-- 1 root root 2526 Aug 23 00:38 README.md
