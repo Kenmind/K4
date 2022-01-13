@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+# Displays contents of current directory in list format
+#+ and only the name after the first '-' is displayed
+ls=$(ls)
+for x in $ls
+do
+	echo "$x" | cut -d '-' -f2
+done
