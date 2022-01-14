@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+# Prints its process id
+echo "$BASHPID"
