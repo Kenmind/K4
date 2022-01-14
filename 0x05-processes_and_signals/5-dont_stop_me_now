@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+# Kills the process To infinity and beyond
+i=$(pgrep "bash ./4-to_infinity_and_beyond" -f)
+if [ -n "$i" ]
+then
+	kill -15 "$i"
+fi
