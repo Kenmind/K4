@@ -5,7 +5,7 @@ package {'nginx':
 }
 
 
-file_line {'aaaaa':
+file_line {'redirect_me':
   ensure => 'present',
   path   => '/etc/nginx/sites-available/default',
   after  => 'Listen 80 default_server;',
