@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+# Installs Nginx web server on the server
+#+ Nginx should be listening to port 80
+#+ When querying nginx at it's root using curl it
+#+	must return a page with a sting "Hello World!"
+#+ configures a new Ubuntu machine to respect above requirements
+apt-get -y update
+apt-get -y install nginx
+echo "Hello World" | sudo tee /usr/share/nginx/html/index.html
+sudo service nginx restart
