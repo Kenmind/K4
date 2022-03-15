@@ -6,5 +6,5 @@
 #+ configures a new Ubuntu machine to respect above requirements
 apt-get -y update
 apt-get -y install nginx
-echo "Hello World" | sudo tee /var/www/html/index.html
+echo "Hello World!" | sudo tee /var/www/html/index.html
 sudo service nginx restart
