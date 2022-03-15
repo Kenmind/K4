@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+# Starts Apache server to print "Hello Holberton" when
+#+ you query the docker image using curl on port 8080
+sudo service apache2 start
