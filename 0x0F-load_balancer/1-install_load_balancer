@@ -2,39 +2,10 @@
 # Installs and configures HAproxy with version 1.5 or greater
 #+ in order to send trafic to web-01 and web-02
 apt-get install --no-install-recommends software-properties-common
-add-apt-repository -y ppa:vbernat/haproxy-1.8
+add-apt-repository -y ppa:vbernat/haproxy-2.0
 apt-get update
-apt-get install haproxy=1.8.\*
+apt-get install haproxy=2.0.\*
 
-echo "ENABLE=1" >> /etc/default/haproxy
-mv /etc/haproxy/haproxy.cfg{,.original}
-touch /etc/haproxy/haproxy.cfg
-
-printf %s "global
-	log 127.0.0.1 local0 notice
-	maxconn 2000
-	user haproxy
-	group haproxy
-defaults
-	log	global
-	mode	http
-	option	httplog
-	option	dontlognull
-	retries	3
-	option	redispatch
-	timeout	connect 5000
-	timeout	client 10000
-	timeout	server 10000
-listen hbnb
-	bind 0.0.0.0:80
-	mode http
-	stats enable
-	stats uri /haproxy?stats
-	balance roundrobin
-	option httpclose
-	option forwardfor
-	server 2191-web-01 3.229.113.167 check
-	server 2191-web-02 34.234.210.158 check
-" >> /etc/haproxy/haproxy.cfg
-
-service haproxy start
+sed -i "s/ENABLED=0/ENABLED=1/" /etc/default/haproxy
+echo -e "\nfrontend localnodes\n\tbind *:80\n\tmode: http\n\tdefault_backend nodes\n\n\nbackend nodes\n\tbalance roundrobin\n\tserver 2191-web-01 3.229.113.167:80 check\n\tserver 2191-web-02 34.204.205.241:80 check\n" >> /etc/haproxy/haproxy.cfg
+service haproxy restart
