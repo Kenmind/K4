@@ -1,11 +1,22 @@
 #!/usr/bin/env bash
 # Installs and configures HAproxy with version 1.5 or greater
 #+ in order to send trafic to web-01 and web-02
-apt-get install --no-install-recommends software-properties-common
-add-apt-repository -y ppa:vbernat/haproxy-2.0
-apt-get update
-apt-get install haproxy=2.0.\*
+apt-get -y install haproxy
 
-sed -i "s/ENABLED=0/ENABLED=1/" /etc/default/haproxy
-echo -e "\nfrontend localnodes\n\tbind *:80\n\tmode: http\n\tdefault_backend nodes\n\n\nbackend nodes\n\tbalance roundrobin\n\tserver 2191-web-01 3.229.113.167:80 check\n\tserver 2191-web-02 34.204.205.241:80 check\n" >> /etc/haproxy/haproxy.cfg
-service haproxy restart
+# edit config file
+server_config=\
+"
+frontend  kenmind-alx_front
+        bind *:80
+        mode http
+        default_backend kenmind-alx_back
+backend kenmind-alx_back
+        balance roundrobin
+        server 335-web-01 34.75.211.145:80 check
+        server 335-web-02 3.236.217.0:80 check
+"
+ echo "$server_config" >> /etc/haproxy/haproxy.cfg
+
+ echo "ENABLED=1" >> /etc/default/haproxy
+
+ sudo service haproxy restart
