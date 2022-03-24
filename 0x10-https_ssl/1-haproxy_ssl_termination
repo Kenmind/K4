@@ -1,0 +1,62 @@
+global
+	log 127.0.0.1	local0 notice
+	maxconn 2000
+	user haproxy
+	group haproxy
+	tune.ssl.default-dh-param 2000
+
+defaults
+	log	global
+	mode	http
+	option	httplog
+	option	dontlognull
+	retries	3
+	option	redispatch
+	timeout	connect 5000
+	timeout	client 10000
+	timeout	server 10000
+	option	forwardfor
+	option	http-server-close
+
+
+listen hbnb
+	bind 0.0.0.0:80
+	mode http
+	stats enable
+	stats uri /haproxy?stats
+	balance roundrobin
+	option httpclose
+	option forwardfor
+	server 2191-web-01 3.229.113.167 check
+	server 2191-web-02 34.234.210.158 check
+
+
+frontend localnodes
+	bind *:80
+	reqadd X-Forwarded-Proto:\ http
+	default_backend nodes
+
+
+frontend www-https
+	bind 0.0.0.0:443 ssl crt /etc/haproxy/certs/www.themasterminds.tech/all.pem
+	reqadd X-Forwarded-Proto:\ https
+	acl letsencrypt-acl path_beg /.well-known/acme-challenge/
+	use_backend letsencrypt-backend if letsencrypt-acl
+	default_backend nodes
+backend nodes
+	balance roundrobin
+	redirect scheme https if !{ ssl_fc }
+	server 2191-web-01 3.229.113.167:80 check
+	server 2191-web-02 34.204.205.241:80 check
+
+backend letsencrypt-backend
+	server letsencrypt 127.0.0.1:54321
+
+frontend  kenmind-alx_front
+        bind *:80
+        mode http
+        default_backend kenmind-alx_back
+backend kenmind-alx_back
+        balance roundrobin
+        server 2191-web-01 3.229.113.167:80 check
+        server 2191-web-02 3.234.210.158:80 check
