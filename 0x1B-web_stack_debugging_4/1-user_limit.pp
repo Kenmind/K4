@@ -1,5 +1,4 @@
 # Fixing user limit
-exec { 'Change ULIMIT':
-￼  command  => 'echo -e "holberton hard nofile 2500\nholberton soft nofile 25000" > /etc/security/limits.conf',
-   provider => shell,
+exec { "sed -i -E '56s/[0-9]+/5000/;57s/[0-9]+/5000/' /etc/security/limits.conf":
+  path => [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/' ]
 }
