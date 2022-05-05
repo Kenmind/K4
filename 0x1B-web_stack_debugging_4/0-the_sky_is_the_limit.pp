@@ -1,6 +1,4 @@
 # Fixing limited requests problem 
-exec { 'fix file limit':
-  onlyif  => 'test -e /etc/default/nginx',
-  command => 'sed -i "5s/[0-9]\+/$( ulimit -n )/" /etc/default/nginx; service nginx restart',
-  path    => '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin',
+exec { "sed -i 's/15/4096/' /etc/default/nginx && sudo service nginx restart":
+path => [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/' ]
 }
